@@ -1,0 +1,121 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıt Ol</title>
+  <style>
+    body {
+      background-color: #212121;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    
+    .container {
+      width: 300px;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 15px;
+      margin-bottom: 10px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+    
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: #ff3d00;
+    }
+  </style>
+</head>
+<body>
+    <div class="container">
+      <h1>Kayıt Ol</h1>
+      <form id="login-form">
+        <input type="text" id="username" placeholder="Kullanıcı Adını Gir" required>
+        <input type="password" id="password" placeholder="Şifreni Gir" required>
+        <input type="password" id="password1" placeholder="Şifreni Tekrar Gir" required>
+        <label for="admin" style="margin-left: 10px;">Kullanici Tipi (Admin ise işaretleyin)</label>
+        <input type="checkbox" id="admin">
+        <input type="submit" value="Kayıt Ol">
+        <input type="submit" value="Giriş Yap" onclick="girisYap()">
+      </form>
+      <p class="message"></p>
+    </div>
+    <script>
+        function girisYap(){
+            window.location.href = "login.html";
+        }
+    document.getElementById('login-form').addEventListener('submit', (event) => {
+      event.preventDefault();
+      const username = document.getElementById('username').value;
+      const password = document.getElementById('password').value;
+      const password1 = document.getElementById('password1').value;
+      const isAdmin = document.getElementById('admin').checked.toString();
+      
+      // Şifre kontrolü
+      if (password !== password1) {
+        showMessage('Girilen şifreler eşleşmiyor!');
+        return;
+      }
+  
+      const data = {
+        username: username,
+        password: password,
+        isAdmin: isAdmin
+      };
+      var xhr = new XMLHttpRequest();
+      xhr.open('POST', 'http://localhost:8080/register', true);
+      xhr.setRequestHeader('Content-Type', 'application/json');
+      xhr.onreadystatechange = function() {
+        if (xhr.readyState === XMLHttpRequest.DONE) {
+          if (xhr.status === 200) {
+            showMessage('Kayıt başarılı!');
+          } else if (xhr.status === 401) {
+            showMessage('Kullanıcı zaten kayıtlı!');
+          } else {
+            // Diğer hata durumlarında farklı bir HTML sayfasına geçiş yapabilirsiniz
+            window.location.href = 'error.html';
+          }
+        }
+      };
+      xhr.send(JSON.stringify(data));
+    });
+  
+    function showMessage(message) {
+      var messageElement = document.querySelector('.message');
+      messageElement.textContent = message;
+    }
+    </script>
+  </body>
+</html>
+

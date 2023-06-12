@@ -1,0 +1,107 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Finish</title>
+  <style>
+    body {
+      background-color: #212121;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    
+    .container {
+      width: 300px;
+      padding: 20px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+    }
+    
+    h1 {
+      text-align: center;
+      margin-bottom: 20px;
+    }
+    
+    input[type="text"],
+    input[type="password"] {
+      width: 90%;
+      padding: 15px;
+      margin-bottom: 10px;
+      background-color: #555;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+    }
+    
+    input[type="submit"] {
+      width: 100%;
+      padding: 10px;
+      margin-top: 10px;
+      background-color: #4caf50;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+    }
+    
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: #ff3d00;
+    }
+  </style>
+</head>
+<body>
+  <div class="container">
+    <h1><span id="kValue"></span> . Alıştırma Sonuçları</h1>
+    <p>Toplam Soru Sayısı: <span id="questionCount"></span></p>
+    <p>Doğru Soru Sayısı: <span id="tq"></span></p>
+    <p>Yanlış Soru Sayısı: <span id="fq"></span></p>
+    <p>Puanınız: <span id="score"></span></p>
+    <p>Bitirme Süreniz: <span id="completionTime"></span></p>
+    <input type="submit" value="Yeni Alıştırma Çöz">
+    <input type="submit" value="Çıkış Yap" onclick="window.location.href = 'login.html';">
+  </div>
+  <script>
+    window.onload = function() {
+        getResults();
+    }
+    function getResults(){
+        var urlParams = new URLSearchParams(window.location.search);
+        var username = urlParams.get('username');
+        var clickedBoxId = urlParams.get('clickedBoxId');
+        document.getElementById("kValue").innerText = clickedBoxId;
+        var xhr = new XMLHttpRequest();
+        const data = {
+            username: username,
+            clickedBoxId: clickedBoxId
+        }
+        xhr.open("POST", "http://localhost:8080/getResult", true);
+        xhr.setRequestHeader("Content-Type", "application/json");
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === 4 && xhr.status === 200) {
+                console.log(xhr.responseText);
+                var result = JSON.parse(xhr.responseText);
+                document.getElementById("questionCount").innerText = result.b;
+                document.getElementById("tq").innerText = result.tq;
+                document.getElementById("fq").innerText = Number(result.b) - Number(result.tq);
+                document.getElementById("score").innerText = Number(result.c).toFixed(2);
+                document.getElementById("completionTime").innerText = result.d + " saniye";
+            }
+        };
+        xhr.send(JSON.stringify(data));
+    }
+    var newExerciseButton = document.querySelector("input[type='submit']");
+    newExerciseButton.addEventListener("click", function(){
+        var urlParams = new URLSearchParams(window.location.search);
+        var username = urlParams.get('username');
+        var clickedBoxId = urlParams.get('clickedBoxId');
+        window.location.href = "anasayfaKullanici.html" + "?id=" + username ;
+    });
+  </script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Rapor</title>
+    <link rel="stylesheet" href="css/report.css">
+</head>
+<body>
+    <div class="container">
+        <h1>Nokta Grafiği Ve Alıştırma Sonuç Detayları</h1>
+        <canvas id="chartCanvas" width="500" height="500"></canvas>
+        <table id="dataTable">
+        <tr>
+            <th>Kullanıcı Adı</th>
+            <th>Puanı</th>
+            <th>Harcanan Süre</th>
+        </tr>
+        </table>
+        <input type="submit" value="Geri Dön" onclick="girisYap()">
+        <input type="submit" value="Detaylı Excel Dosyası Oluştur" onclick="excelExport()">
+        <div class="message">
+    </div>
+    <script src="js/report.js"></script>
+</body>
+</html>

@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Alıştırma Sayfası</title>
+  <link rel="stylesheet" href="css/exercises.css">
+</head>
+<body>
+  <div class="container">
+    <p id="timer">0 saniye geçti.</p>
+    <p id="username"></p>
+    <p id="exN">0</p>
+    <p id= "qc">0</p>
+    <div class="equation">
+      <p id="a">A</p>
+      <p>&nbsp x &nbsp</p>
+      <p id="b">B</p>
+      <p>&nbsp= ?</p>
+    </div>
+    <form onsubmit="submitForm(); return false;">
+      <input type="number" id="input" />
+      <button type="submit">Gönder</button>
+    </form>
+  </div>
+  <script src="js/exercises.js"></script>
+</body>
+</html>

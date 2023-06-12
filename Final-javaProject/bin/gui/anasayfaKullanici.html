@@ -1,0 +1,151 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Hoşgeldiniz Kullanıcı</title>
+  <style>
+    body {
+      background-color: #212121;
+      color: #fff;
+      font-family: Arial, sans-serif;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+    }
+    
+    .container {
+      width: 600px;
+      padding: 30px;
+      background-color: #333;
+      border-radius: 10px;
+      box-shadow: 0 0 10px rgba(0, 0, 0, 0.3);
+      display: flex;
+      flex-wrap: wrap;
+      justify-content: center;
+      align-items: center;
+      position: relative;
+    }
+    
+    .box {
+      width: 160px;
+      height: 160px;
+      background-color: #555;
+      border-radius: 10px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      cursor: pointer;
+      margin-bottom: 10px;
+      transition: background-color 0.3s ease-in-out;
+      margin-left: 10px;
+      margin-right: 10px;
+    }
+    .box:hover {
+      background-color: #4caf50;
+    }
+    .box-text {
+      font-size: 24px;
+      text-align: center;
+    }
+    
+    .message {
+      text-align: center;
+      margin-top: 10px;
+      color: #ff3d00;
+    }
+    #text {
+      width: 100%;
+      text-align: center;
+      margin-top: 20px;
+      margin-bottom: 50px;
+      color: #ffffff;
+    }
+    .logout-button {
+      background-color: #8B0000;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      padding: 6px 16px;
+      font-size: 14px;
+      cursor: pointer;
+      margin-top: 50px;
+      transition: background-color 0.3s ease-in-out;
+      position: absolute;
+      bottom: 3px;
+      left: 50%;
+      transform: translateX(-50%);
+    }
+    .logout-button:hover {
+      background-color: #ec5050;
+    }
+  </style>
+  <script>
+    max = 0;
+    window.addEventListener('DOMContentLoaded', function(){
+        var xhr = new XMLHttpRequest();
+        xhr.open('POST', 'http://localhost:8080/totalExerciseNumber', true);
+        xhr.setRequestHeader('Content-type', 'application/x-www-form-urlencoded');
+        xhr.onreadystatechange = function() {
+            if (xhr.readyState === XMLHttpRequest.DONE) {
+                if(xhr.status === 200){
+                    max = parseInt(xhr.responseText);
+                    createExerciseBoxes(max);
+                }
+                else{
+                    console.log("Hata oluştu");
+
+                }
+            }
+        };
+        xhr.send();
+    });
+    function createExerciseBoxes(max) {
+        var container = document.querySelector(".container");
+        for (var i = 1; i <=max; i++) {
+            var box = document.createElement("div");
+            var boxId =  i; // Benzersiz id değeri oluştur
+            box.setAttribute("id", boxId);
+            box.classList.add("box");
+            
+            var boxText = document.createElement("div");
+            boxText.classList.add("box-text");
+            boxText.textContent = i + ". alıştırma";
+            
+            box.appendChild(boxText);
+            container.appendChild(box);
+            
+            // Kutuya tıklama olayı dinleyicisi ekle
+            box.addEventListener("click", handleBoxClick);
+        }
+    }
+    function handleBoxClick(event) {
+        var clickedBoxId = findClickedBoxId(event.target);
+        var urlParams = new URLSearchParams(window.location.search);
+        var username = urlParams.get('id');
+        var mergedParams = new URLSearchParams();
+        mergedParams.append("clickedBoxId", clickedBoxId);
+        mergedParams.append("username", username);
+        var mergedParamsString = mergedParams.toString();
+        var redirectUrl = "exercises.html?" + mergedParamsString;
+        window.location.href = redirectUrl;
+    }
+
+    function findClickedBoxId(element) {
+        while (element) {
+            if (element.classList.contains("box")) {
+                return element.id;
+            }
+            element = element.parentElement;
+        }
+        return null;
+    }
+  </script>
+</head>
+<body>
+  <div class="container">
+    <h1 id="text">Hoşgeldin</h1>
+    <button class="logout-button" onclick="window.location.href = 'login.html';">Çıkış Yap</button>
+  </div>
+  </div>
+</body>
+</html>

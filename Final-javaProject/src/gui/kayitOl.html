@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Kayıt Ol</title>
+  <link rel="stylesheet" href="css/kayitOl.css">
+</head>
+<body>
+    <div class="container">
+      <h1>Kayıt Ol</h1>
+      <form id="login-form">
+        <input type="text" id="username" placeholder="Kullanıcı Adını Gir" required>
+        <input type="password" id="password" placeholder="Şifreni Gir" required>
+        <input type="password" id="password1" placeholder="Şifreni Tekrar Gir" required>
+        <label for="admin" style="margin-left: 10px;">Kullanici Tipi (Admin ise işaretleyin)</label>
+        <input type="checkbox" id="admin">
+        <input type="submit" value="Kayıt Ol">
+        <input type="submit" value="Giriş Yap" onclick="girisYap()">
+      </form>
+      <p class="message"></p>
+    </div>
+    <script src="js/kayitOl.js"></script>
+  </body>
+</html>
+
