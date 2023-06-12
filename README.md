@@ -12,3 +12,7 @@ Interface içerisinde yalnızca metod tanımı bulunurken Abstract Class içeris
 - E4-ExceptionHandling örneğinde belirli koşullara göre hata mesajı yazdırma örnekleri gerçekleştirilmiştir.
 
 - E5-UMLexample örneğinde UML diyagramındaki ifadelerin ne anlama geldiği Main.java dosyasında açıklama olarak belirtilmiştir. Buna bağlı olarak OOP örnek sınıfları yazılmıştır.
+
+## Final-javaProject
+
+Bu proje, öğrencilerin çarpma becerilerini geliştirmek amacıyla istemci-sunucu yapısı kullanarak oluşturulan bir uygulamadır. Uygulamada kullanıcı dostu bir deneyim sunmak için frontend kısmında HTML, CSS ve JavaScript teknolojileri kullanılmıştır. Backend tarafında ise Java teknolojisi tercih edilmiştir. Frontend ve backend, 8080 portu üzerinden haberleşirken, JavaScript kullanarak yapılan HTTP istekleri backend tarafında karşılanmaktadır. Admin kullanıcılar, soru sayısı ve çarpma aralığı gibi parametreleri belirleyerek istedikleri kadar alıştırma tanımlayabilirler. Öğrenci kullanıcılar ise bu alıştırmaları çözebilir ve sonuçları detaylı bir şekilde raporlanır. Admin arayüzünde alıştırmalara ait genel sonuçlar görüntülenebilir ve istenirse her alıştırmanın ayrıntılı analizini içeren bir Excel çıktısı oluşturulabilir.
